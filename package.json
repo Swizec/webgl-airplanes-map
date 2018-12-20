@@ -3,8 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "d3": "^5.7.0",
+    "deck.gl": "^6.3.2",
     "react": "^16.7.0",
-    "react-dom": "^16.7.0"
+    "react-dom": "^16.7.0",
+    "react-map-gl": "^4.0.5"
   },
   "devDependencies": {
     "react-scripts": "2.1.1"
