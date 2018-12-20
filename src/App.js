@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import logo from "./logo.svg";
 import "./App.css";
-import DeckGL, { ScatterplotLayer } from "deck.gl";
+import DeckGL, { IconLayer } from "deck.gl";
 import { StaticMap } from "react-map-gl";
 import * as d3 from "d3";
+import Airplane from "./airplane-icon.jpg";
 
 // Set your mapbox access token here
 const MAPBOX_ACCESS_TOKEN =
@@ -37,7 +38,8 @@ class App extends Component {
                         latitude: d[6],
                         velocity: d[9],
                         altitude: d[13],
-                        origin_country: d[2]
+                        origin_country: d[2],
+                        true_track: d[10]
                     }))
                 })
         );
@@ -46,16 +48,23 @@ class App extends Component {
 
     render() {
         const layers = [
-            new ScatterplotLayer({
-                id: "scatterpliot-airplanes",
+            new IconLayer({
+                id: "airplanes",
                 data: this.state.airplanes,
                 pickable: false,
-                opacity: 0.8,
-                radiusMinPixels: 5,
-                radiusMaxPixels: 100,
+                iconAtlas: Airplane,
+                iconMapping: {
+                    airplane: {
+                        x: 0,
+                        y: 0,
+                        width: 512,
+                        height: 512
+                    }
+                },
+                sizeScale: 20,
                 getPosition: d => [d.longitude, d.latitude],
-                getColor: d => [255, 140, 0],
-                getRadius: d => 5
+                getIcon: d => "airplane",
+                getAngle: d => 45 + (d.true_track * 180) / Math.PI
             })
         ];
 
