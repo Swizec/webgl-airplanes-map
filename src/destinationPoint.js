@@ -1,4 +1,6 @@
 // Taken from https://stackoverflow.com/questions/19352921/how-to-use-direction-angle-and-speed-to-calculate-next-times-latitude-and-longi
+// with small modifications to fit our usecase
+
 /**
  * Returns the destination point from a given point, having travelled the given distance
  * on the given initial bearing.
@@ -27,7 +29,7 @@ export default function destinationPoint(lon, lat, distance, bearing) {
     // see mathforum.org/library/drmath/view/52049.html for derivation
 
     var δ = Number(distance) / radius; // angular distance in radians
-    var θ = toRadians(Number(bearing));
+    var θ = Number(bearing);
 
     var φ1 = toRadians(Number(lat));
     var λ1 = toRadians(Number(lon));

@@ -27,7 +27,7 @@ class App extends Component {
     currentFrame = null;
     timer = null;
     fetchEverySeconds = 10;
-    framesPerFetch = this.fetchEverySeconds * 60; // 60fps, 10 second intervals
+    framesPerFetch = this.fetchEverySeconds * 30; // 60fps, 10 second intervals
 
     componentDidMount() {
         this.fetchData();
@@ -46,14 +46,14 @@ class App extends Component {
                             velocity: d[9],
                             altitude: d[13],
                             origin_country: d[2],
-                            true_track: d[10],
+                            true_track: -d[10],
                             interpolatePos: d3.geoInterpolate(
                                 [d[5], d[6]],
                                 destinationPoint(
                                     d[5],
                                     d[6],
                                     d[9] * this.fetchEverySeconds,
-                                    (d[10] * 180) / Math.PI
+                                    d[10]
                                 )
                             )
                         }))
@@ -111,7 +111,7 @@ class App extends Component {
                 sizeScale: 20,
                 getPosition: d => [d.longitude, d.latitude],
                 getIcon: d => "airplane",
-                getAngle: d => 45 + (-d.true_track * 180) / Math.PI
+                getAngle: d => 45 + (d.true_track * 180) / Math.PI
             })
         ];
 
